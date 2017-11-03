@@ -1,0 +1,7 @@
+"A well-defined response strategy to an outbreak may make use of [web and social media] to reduce population and human impact of the disease."
+
+They use spinn3r, an API for easily accessing lots of blog posts
+https://www.programmableweb.com/api/spinn3r/
+Note: no "micro-blogs, wikis" so no twitter
+
+"We posit a strong correlation exists between the frequency of FC-posts per week and CDC ILI surveillance data."
