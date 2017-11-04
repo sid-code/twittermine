@@ -11,16 +11,24 @@ client = Twitter::Streaming::Client.new do |config|
   config.access_token_secret  = keys[3]
 end
 
+puts "Twitter client initialized"
+
+
+print "Determining initial output file... "
 index = 0
 while File.exists?(outpat % index)
   index += 1
 end
+puts "#{outpat % index}"
 
-splitsize = 100
+splitsize = 500
 
 tweets = []
 
 count = 0
+puts "Starting twitter stream.\nLooking for topics:"
+puts "  #{topics.join("\n  ")}"
+
 client.filter(track: topics.join(",")) do |object|
   count += 1
   if object.is_a?(Twitter::Tweet)
@@ -28,8 +36,10 @@ client.filter(track: topics.join(",")) do |object|
   end
 
   if count > splitsize
-    File.open(outpat % index, "wb") do |f|
+    outname = outpat % index
+    File.open(outname, "wb") do |f|
       f.write(Marshal.dump(tweets))
+      puts "Wrote file #{outname}, moving on"
     end
     tweets.clear
     count = 0
