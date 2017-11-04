@@ -3,6 +3,9 @@ require "twitter"
 keys = IO.readlines("./keys.txt").map(&:strip)
 topics = IO.readlines("./terms.txt").map(&:strip)
 outpat = "./data/tweets%d.dat"
+splitsize = 500
+tweets = []
+count = 0
 
 client = Twitter::Streaming::Client.new do |config|
   config.consumer_key         = keys[0]
@@ -21,11 +24,7 @@ while File.exists?(outpat % index)
 end
 puts "#{outpat % index}"
 
-splitsize = 500
-
-tweets = []
-
-count = 0
+puts "#{splitsize} tweets per file"
 puts "Starting twitter stream.\nLooking for topics:"
 puts "  #{topics.join("\n  ")}"
 
